@@ -1,0 +1,16 @@
+Descriptive statistical summary
+
+Dataset: 333 penguins (of 344 total) with complete data across 3 species — Adelie, Chinstrap, Gentoo.
+
+Overall body mass (n=333):
+Mean 4207.1 g, Median 4050 g, Minimum 2700 g, Maximum 6300 g, Variance 648,372.5, Standard Deviation 805.2 g, Q1 3550 g, Q3 4775 g, IQR 1225 g, Skewness 0.47 (mild right skew), Kurtosis -0.74 (slightly flatter than normal).
+
+By species:
+
+Adelie — Mean 3706.2 g, Median 3700 g, SD 458.6 g, IQR 637.5 g, Skewness 0.28, Kurtosis -0.59
+
+Chinstrap — Mean 3733.1 g, Median 3700 g, SD 384.3 g, IQR 462.5 g, Skewness 0.24, Kurtosis 0.46
+
+Gentoo — Mean 5092.4 g, Median 5050 g, SD 501.5 g, IQR 800 g, Skewness 0.04, Kurtosis -0.76
+
+Key takeaway: Gentoo penguins are substantially heavier and more variable than Adelie and Chinstrap, which are nearly identical to each other in body mass. All three groups show only mild skew and near-normal kurtosis, so no species is strongly non-normal in shape.
