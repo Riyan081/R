@@ -2,13 +2,12 @@
 
 ---
 
-## 📌 1. Project at a Glance (Quick Summary)
-* **What is this project about?**  
-  We took real-world air pollution sensor data from Beijing (`target.csv`), found thousands of missing/broken entries (`NA`), and cleaned them up using smart statistical methods.
-* **Main Script:** `Task1.R`
-* **Outputs:** 
-  1. `cleanedTarget.csv` (100% clean dataset ready for use)
-  2. A comparison bar chart showing zero missing values after cleaning.
+## 📌 1. Project Overview & Title
+* **Project Title:** Air Quality Data Exploration & Missing Value Treatment
+* **Course:** R Programming Laboratory (PBL 1)
+* **Dataset Used:** Beijing Multi-Site Air-Quality Data (`target.csv` / Aotizhongxin Monitoring Station)
+* **Primary Script:** `Task1.R`
+* **Output Artifacts:** `cleanedTarget.csv`, `Bar chart of comparison between missing values before and after cleaning.jpg`
 
 ---
 
@@ -140,23 +139,38 @@ The dataset contains **35,064 hourly readings** with 18 columns. The most import
 
 ## 🗣️ 7. What to Say to Your Teacher (Simple Viva Cheat-Sheet)
 
-**Q1: What does this project do?**  
-> *"Sir/Ma'am, it takes real Beijing air quality sensor data, finds all missing and invalid sensor values, and fills them in using median for numbers and mode for wind direction so the data is ready for analysis."*
+### Q1: What is the main objective of this lab/project?
+> **Answer:** "To ingest the real-world Beijing Air Quality dataset, identify and categorize different types of missing values (`NA`, `NULL`, `NaN`), and build a clean data preparation pipeline using median imputation for continuous variables and mode imputation for categorical variables."
 
-**Q2: Why did you use Median instead of Average (Mean)?**  
-> *"Because air pollution has sudden extreme spikes (outliers). The average gets easily ruined by spikes, but the median represents the true middle value and doesn't get distorted."*
+### Q2: Why did you use Median instead of Mean for numerical columns?
+> **Answer:** "Air pollution data has extreme spikes during pollution events (outliers), making the distribution skewed. The mean is strongly pulled by outliers, which would artificially distort the data. The median represents the middle 50th percentile and is robust against extreme values."
 
-**Q3: Why did you use Mode for wind direction?**  
-> *"Wind direction is text like 'North-East', not numbers. You cannot calculate an average of text, so we used the mode (the most common wind direction)."*
+### Q3: Why couldn't you use Mean or Median for wind direction (`wd`)?
+> **Answer:** "Wind direction is a qualitative/categorical variable containing string labels like 'NNW' or 'ENE'. You cannot perform arithmetic calculations on text labels, so we used the mode (the most frequently observed wind direction), which was found to be 'NE'."
 
-**Q4: What is the difference between `NA` and `NaN`?**  
-> *"NA means the sensor didn't record data (missing value). NaN means 'Not a Number', which happens when an impossible calculation occurs like 0 divided by 0."*
+### Q4: What is the difference between `NA`, `NULL`, and `NaN` in R?
+> **Answer:** 
+> * **`NA` (Not Available):** A missing data indicator in a vector; space is reserved, but the measurement is absent.
+> * **`NULL`:** Represents the complete absence of an object or an empty data structure with zero length.
+> * **`NaN` (Not a Number):** A numeric result of an undefined mathematical operation, such as `0 / 0`.
 
-**Q5: Why does the graph only show red bars? Where is green?**  
-> *"Red shows missing values before cleaning. Green shows missing values after cleaning. Since our code fixed all missing values, the count after cleaning is exactly zero, so the green bars have a height of zero."*
+### Q5: Why did you write `ex3 <- 0 / 0` in Task 2?
+> **Answer:** "Because the raw CSV file only contains unrecorded values (`NA`), but the assignment required us to demonstrate all three types of missingness. `0 / 0` is the standard way in R to generate and detect a `NaN` using `is.nan()`."
 
-**Q6: Why did you write `0 / 0` in Task 2?**  
-> *"Because the original CSV only had NA values. I wrote `0 / 0` to demonstrate to R how a NaN (Not a Number) is created and how `is.nan()` detects it."*
+### Q6: What did you do with division-by-zero errors in the pollution ratio in Task 4?
+> **Answer:** "When computing `PM2.5 / PM10`, cases where PM10 was zero produced `Inf` or `NaN`. We used conditional indexing to replace all `NaN` and infinite values with standard `NA` to maintain consistent missingness handling across R."
+
+### Q7: Why are there 'Error:' messages printed in Task 7? Did the script crash?
+> **Answer:** "No, the script did not crash. Those errors were intentional test cases to verify defensive programming using `tryCatch()`. We tested a non-existent column ('XYZ') and a categorical column ('wd') to demonstrate that our custom cleaning function catches invalid inputs gracefully without halting the application."
+
+### Q8: Why does the bar chart in Task 9 only show red bars? Where are the green bars?
+> **Answer:** "Red represents missing values before cleaning, and Green represents missing values after cleaning. Because every single missing value was successfully replaced, the post-cleaning count is exactly 0. A bar of height 0 sits flat on the axis, proving that 100% of missing values were cleaned."
+
+### Q9: Why did you use `row.names = FALSE` in `write.csv()`?
+> **Answer:** "By default, R writes a numeric row index (1, 2, 3...) as the first unnamed column in the exported CSV. Setting `row.names = FALSE` prevents creating redundant index columns."
+
+### Q10: What is the purpose of `na.rm = TRUE` inside `median()`?
+> **Answer:** "In R, if you compute `median(x)` on a vector containing even a single `NA`, R returns `NA` by default. Setting `na.rm = TRUE` instructs R to ignore missing values while calculating the median of the available data."
 
 ---
 
